@@ -10,6 +10,18 @@ require('./../../config/passport')(passport);
 /** Import Models */
 const passportJWT = passport.authenticate('jwt', { session: false });
 
+/**
+ * Routes:
+ * -----------------------------------------------
+ * POST api/users/register - Register User
+ * POST api/users/login - Login User
+ * GET api/users/current - Get Current user info
+ * DELETE api/users/current - Remove current logged user
+ * -----------------------------------------------
+ */
+
+
+
 
 // @route   POST api/users/register
 // @desc    Register user
@@ -101,6 +113,17 @@ router.get('/current',passportJWT, (req, res)=>{
   })
 });
 
+// @route   DELETE api/users/current
+// @desc    Delete current user
+// @access  Private
+router.delete('/current', passportJWT, async(req, res)=>{
+  try {
+    await User.findByIdAndRemove({_id: req.user.id});
+    return res.json({success: true,});
+  } catch (err){
+    throw err;
+  }
+});
 
 /**Import controllers */
 module.exports = router;
