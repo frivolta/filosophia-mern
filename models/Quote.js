@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const QuoteSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'users',
   },
   text: {
     type: String,
@@ -14,6 +14,9 @@ const QuoteSchema = new Schema({
     type: String,
     required: true,
     default: 'General'
+  },
+  avatar: {
+    type: String
   },
   date:{
     type: Date,
