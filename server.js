@@ -9,6 +9,7 @@ const app = express();
 
 /** Require API Routes */
 const users = require ('./routes/api/users');
+const quotes = require ('./routes/api/quotes');
 
 /** Define Middlewares */
 //Bodyparser
@@ -29,6 +30,7 @@ mongoose.connect(db)
 
 /** Define Routes */
 app.use ('/api/users', users);
+app.use ('/api/quotes', quotes);
 
 
 /** Start and Listen */

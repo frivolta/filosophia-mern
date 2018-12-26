@@ -9,6 +9,8 @@ const User = require('../../models/User');
 require('./../../config/passport')(passport);
 /** Import Models */
 const passportJWT = passport.authenticate('jwt', { session: false });
+/** Import Validation */
+const validateRegisterInput = require('./../../validation/register')
 
 /**
  * Routes:
@@ -27,8 +29,12 @@ const passportJWT = passport.authenticate('jwt', { session: false });
 // @desc    Register user
 // @access  Public
 router.post('/register', async(req, res)=>{
-  const errors = {}
+  const {errors, isValid} = validateRegisterInput(req.body);
   const {name, email, password} = req.body;
+  
+  //Validate req.body
+  if(!isValid){ return res.status(400).json(errors) };
+  
   //Check if user exists
   const existingUser = await User.findOne({ email });
   if (existingUser){
@@ -125,5 +131,5 @@ router.delete('/current', passportJWT, async(req, res)=>{
   }
 });
 
-/**Import controllers */
+/**Router Middleware */
 module.exports = router;
