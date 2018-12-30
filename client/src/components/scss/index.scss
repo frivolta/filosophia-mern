@@ -1,0 +1,41 @@
+/**
+Colors
+*/
+$primaryColor: #f80759;
+$secondaryColor: #bc4e9c;
+$primaryContrast: #ffffff;
+$fontFamily: 'Roboto';
+
+//Normalize border box
+*,
+:before,
+:after {
+  box-sizing: border-box;
+  font-family:  $fontFamily, sans-serif;
+}
+
+//Container Overrides
+.flex-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+//Global Styling -- Contrast UI
+.contrast-page {
+  background: linear-gradient(135deg, $secondaryColor 0%, $primaryColor 100%);
+  //Headings
+  .heading {
+    &--white {
+      color: $primaryContrast;
+    }
+
+    &--light {
+      font-weight: 100;
+    }
+  }
+
+}
