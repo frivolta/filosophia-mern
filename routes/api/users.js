@@ -90,7 +90,7 @@ router.post('/login', async(req,res)=>{
     //Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if(!isMatch){
-      errors.email = 'Invalid Password';
+      errors.password = 'Invalid Password';
       return res.status(400).json(errors);
     }
     //If user matched create a JWT payload

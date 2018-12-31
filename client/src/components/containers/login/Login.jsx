@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../../redux/actions/authActions';
+import PropTypes, { object } from 'prop-types';
 //Style
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +9,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { styles } from './Login-style';
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
-
 import './Login.scss';
 
 class Login extends Component {
@@ -19,6 +19,24 @@ class Login extends Component {
 			password: '',
 			errors: ''
 		};
+	}
+	componentDidMount(){
+    // Redirect to dashboard if is logged in
+    if(this.props.auth.isAuthenticated){
+      console.log('push to dashboard');
+    }
+  }
+	componentWillReceiveProps(nextProps){
+		if (nextProps.auth.isAuthenticated){
+			console.log('push to dashboard');
+			/*this.props.history.push('/dashboard');*/
+		}
+		if (nextProps.errors){
+			this.setState({
+				...this.state,
+				errors: nextProps.errors
+			})
+		}
 	}
 	handleChange = (e) => {
 		this.setState({
@@ -38,6 +56,7 @@ class Login extends Component {
 	};
 	render() {
 		const { classes } = this.props;
+		const { errors } = this.state;
 		return (
 			<div className="contrast-page background--color flex-container">
 				<Grid container spacing={24} className={classNames('flex-container', classes.root)}>
@@ -57,6 +76,7 @@ class Login extends Component {
 								<span className="highlight" />
 								<span className="bar" />
 								<label>Email</label>
+								{errors.email ? <p className="error">{errors.email}</p> : null }
 							</div>
 							<div className="group">
 								<input
@@ -69,6 +89,7 @@ class Login extends Component {
 								<span className="highlight" />
 								<span className="bar" />
 								<label>Password</label>
+								{errors.password ? <p className="error">{errors.password}</p> : null }
 							</div>
 							<Button onClick={this.handleSubmit} variant="contained" size="large" color="primary" className={classes.loginButton}>
 								Login
@@ -79,6 +100,13 @@ class Login extends Component {
 			</div>
 		);
 	}
+}
+
+Login.propTypes = {
+	loginUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired,
+	classes: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
