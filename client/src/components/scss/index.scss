@@ -11,11 +11,11 @@ $fontFamily: 'Roboto';
 :before,
 :after {
   box-sizing: border-box;
-  font-family:  $fontFamily, sans-serif;
+  font-family: $fontFamily, sans-serif;
 }
 
 //Container Overrides
-.flex-container{
+.flex-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,6 +27,7 @@ $fontFamily: 'Roboto';
 //Global Styling -- Contrast UI
 .contrast-page {
   background: linear-gradient(135deg, $secondaryColor 0%, $primaryColor 100%);
+
   //Headings
   .heading {
     &--white {
@@ -36,9 +37,27 @@ $fontFamily: 'Roboto';
     &--light {
       font-weight: 100;
     }
+
+    &--center {
+      text-align: center;
+    }
+
+    &--link {
+      cursor: pointer;
+      text-decoration: none;
+
+      opacity: .8;
+      transition: all .5s;
+
+      &:hover {
+        transition: all .5s;
+        opacity: 1;
+      }
+    }
   }
-  .error{
-    color:$primaryContrast;
+
+  .error {
+    color: $primaryContrast;
   }
 
 }

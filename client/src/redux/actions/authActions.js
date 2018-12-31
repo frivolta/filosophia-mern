@@ -8,7 +8,7 @@ import {
 } from './../type';
 
 
-//Login - Get User Token
+// Login - Get User Token
 export const loginUser = (userData) => dispatch => {
   axios.post('/api/users/login', userData)
     .then(result => {
@@ -30,10 +30,19 @@ export const loginUser = (userData) => dispatch => {
     });
 }
 
-// Set Logged in user
+// Set logged in user
 export const setCurrentUser = (decoded) => {
   return {
     type: SET_CURRENT_USER,
     payload: decoded
   }
+}
+// Set user log out
+export const logoutUser = () => dispatch => {
+  // Remove token from localStorage
+  localStorage.removeItem('jwtToken');
+  // Remove authHeader for future request
+  setAuthToken(false);
+  // Set current user to {} which will set isAuthenticated to false
+  dispatch(setCurrentUser({}));
 }

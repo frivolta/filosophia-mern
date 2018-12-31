@@ -8,10 +8,10 @@ import FormGroup from '../../commons/FormGroup';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import { styles } from './Login-style';
+import { styles } from './Register-style';
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
-import './Login.scss';
+import './Register.scss';
 
 class Login extends Component {
 	constructor(props) {
@@ -63,9 +63,18 @@ class Login extends Component {
 				<Grid container spacing={24} className={classNames('flex-container', classes.root)}>
 					<Grid item xs={12}>
 						<Typography variant="h3" gutterBottom className="heading--white heading--light">
-							Hello there, welcome back.
+							Create your account
 						</Typography>
 						<form>
+							<FormGroup
+								name = "name"
+								type="text"
+								required="required"
+								value={this.state.name}
+								onchange={this.handleChange}
+								label="name"
+								err={errors.name}
+							/>
 							<FormGroup
 								name = "email"
 								type="text"
@@ -81,8 +90,17 @@ class Login extends Component {
 								required="required"
 								value={this.state.password}
 								onchange={this.handleChange}
-								err={errors.password}
-								label="Password"
+                err={errors.password}
+                label="Password"
+							/>
+							<FormGroup
+								name="confirmPassword"
+								type="password"
+								required="required"
+								value={this.state.confirmPassword}
+								onchange={this.handleChange}
+                err={errors.confirmPassword}
+                label="Confirm Password"
 							/>
 							<Button
 								onClick={this.handleSubmit}
@@ -91,17 +109,17 @@ class Login extends Component {
 								color="primary"
 								className={classes.loginButton}
 							>
-								Login
+								Sign Up
 							</Button>
 						</form>
 					</Grid>
-					<Link to="/register" className="heading--link">
+					<Link to="/" className="heading--link">
 						<Typography
 							variant="subtitle2"
 							className="heading--white heading--center heading--link"
 							gutterBottom
 						>
-							Don't have an account? Sign up!
+							Already have an account? Sign In!
 						</Typography>
 					</Link>
 				</Grid>
