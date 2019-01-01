@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../../../redux/actions/authActions';
+import { registerUser } from '../../../redux/actions/authActions';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FormGroup from '../../commons/FormGroup';
@@ -18,7 +18,8 @@ class Login extends Component {
 		super(props);
 		this.state = {
 			email: '',
-			password: '',
+      password: '',
+      password2: '',
 			errors: ''
 		};
 	}
@@ -48,12 +49,13 @@ class Login extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		const userData = {
+		const newUser = {
+			name: this.state.name,
 			email: this.state.email,
-			password: this.state.password
+			password: this.state.password,
+			password2: this.state.confirmPassword
 		};
-		console.log(userData);
-		this.props.loginUser(userData);
+		this.props.registerUser(newUser, this.props.history);
 	};
 	render() {
 		const { classes } = this.props;
@@ -99,7 +101,7 @@ class Login extends Component {
 								required="required"
 								value={this.state.confirmPassword}
 								onchange={this.handleChange}
-                err={errors.confirmPassword}
+                err={errors.password2}
                 label="Confirm Password"
 							/>
 							<Button
@@ -129,7 +131,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-	loginUser: PropTypes.func.isRequired,
+  registerUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired
@@ -140,4 +142,4 @@ const mapStateToProps = (state) => ({
 	errors: state.errors
 });
 
-export default connect(mapStateToProps, { loginUser })(withStyles(styles)(Login));
+export default connect(mapStateToProps, { registerUser })(withStyles(styles)(Login));

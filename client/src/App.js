@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-//import PrivateRoute from './Components/Common/PrivateRoute';
+import PrivateRoute from './components/commons/PrivateRoute';
 import { Provider } from 'react-redux';
 // See localstorage for jwt token
 import jwt_decode from 'jwt-decode';
@@ -8,6 +8,7 @@ import setAuthToken from './helpers/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/actions/authActions';
 import store from './redux/store';
 import Login from './components/containers/login/Login';
+import Dashboard from './components/containers/dashboard/Dashboard';
 import './components/scss/index.scss';
 import { theme } from './components/jss/theme';
 import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
@@ -41,7 +42,10 @@ class App extends Component {
         <MuiThemeProvider theme={theme}>
         <Router>
             <div className="App">
-              <Route exact path="/" component={Login} />
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
+              <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
             </div>
           </Router>
