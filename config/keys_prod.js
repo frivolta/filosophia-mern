@@ -1,4 +1,4 @@
 module.exports = {
-  mongoURI: process.env.MONGO_URI,
-  secretOrKey: process.env.SECRET_OK_KEY
+  mongoURI: 'mongodb://root:qX0U4vWv@ds253783.mlab.com:53783/mern-start-boilerplate',
+  secretOrKey: 'secret'
 }
