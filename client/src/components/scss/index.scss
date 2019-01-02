@@ -54,6 +54,9 @@ $fontFamily: 'Roboto';
         opacity: 1;
       }
     }
+    &--full-width{
+      width: 100%;
+    }
   }
 
   .error {

@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.7.1",
+    "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
+    "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.23.0",
     "node-sass": "^4.11.0",
     "react": "^16.6.3",
