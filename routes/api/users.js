@@ -101,7 +101,7 @@ router.post('/login', async(req,res)=>{
       avatar: user.avatar
     }
     //Sign token
-    const token = await jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600});
+    const token = await jwt.sign(payload, keys.secretOrKey/*, {expiresIn: 3600}*/);
     return res.json({success: true, token: `Bearer ${token}`});
   } catch (err) {
     throw err;

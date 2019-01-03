@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { postQuote } from './../../../redux/actions/quoteActions';
 import Layout from '../layout/Layout';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -53,8 +55,18 @@ class AddQuote extends Component {
           backgroundColor: '#607d8b',
         },
 
-      ]
+      ],
+      errors:''
 		};
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.errors){
+      this.setState({
+        errors: nextProps.errors
+      })
+      console.log('error found')
+    }
   }
 
   //Handle opacity and selection for category badge
@@ -78,19 +90,23 @@ class AddQuote extends Component {
   //Save quote to db
 	handleSaveQuote=()=>{
     const category = this.state.categories.filter(category => category.selected);
-    const { id, avatar } = this.props.auth.user
+    console.log(category)
+    const { id, avatar } = this.props.auth.user;
     const quote = {
       text: this.state.multiline,
-      category: category[0].label,
       id,
       avatar
     }
-    console.log(quote)
+    category.length>0 ? quote.category = category[0].label : quote.category = 'Other'
+
+    //Submit to action
+    this.props.postQuote(quote, this.props.history);
   }
  
 
 	render() {
-		const { classes } = this.props;
+    const { classes } = this.props;
+    const { errors } = this.state;
 		return (
 			<Layout pageTitle="Add your quote">
 				<Grid container spacing={16} className={classes.root}>
@@ -99,6 +115,7 @@ class AddQuote extends Component {
 							<Typography variant="h5" component="h3">
 								Quote text
 								<TextField
+                  error = {errors}
 									id="outlined-multiline-flexible"
 									label=""
 									multiline
@@ -107,7 +124,7 @@ class AddQuote extends Component {
 									onChange={this.handleChange('multiline')}
 									className={classes.textField}
 									margin="normal"
-									helperText="Write your quote!"
+									helperText={errors.title ? errors.title : "Write your quote!"}
 									variant="outlined"
 								/>
 							</Typography>
@@ -139,7 +156,7 @@ class AddQuote extends Component {
 						color="primary"
 						className={classes.saveButton}
 					>
-						Send Quote!
+						Send
 					</Button>
 				</Grid>
 			</Layout>
@@ -150,10 +167,12 @@ class AddQuote extends Component {
 AddQuote.propTypes = {
   auth: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-
+  postQuote: PropTypes.func.isRequired,
+  errors: PropTypes.object
 }
 const mapStateToProps = (state) => ({
-	auth: state.auth
+  auth: state.auth,
+  errors: state.errors
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(AddQuote));
+export default connect(mapStateToProps, { postQuote })(withRouter((withStyles(styles)(AddQuote))));
