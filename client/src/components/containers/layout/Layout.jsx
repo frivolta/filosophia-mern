@@ -3,8 +3,9 @@ import { styles } from './Layout-style';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../../redux/actions/authActions';
+import { Link } from 'react-router-dom';
 
-//Style
+//Style and layout
 import './Layout.scss';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -30,16 +31,20 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import KeyboardBackSpaceIcon from '@material-ui/icons/KeyboardBackspace';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-
 
 class Layout extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			drawerActive: false
+			drawerActive: false,
 		};
 	}
+	handleLogout = (e) => {
+		e.preventDefault();
+		this.props.logoutUser();
+	};
 	handleOpenDrawer = (open) => {
 		this.setState({
 			...this.state,
@@ -47,24 +52,46 @@ class Layout extends Component {
 		});
 	};
 
+
 	render() {
-    const { classes } = this.props;
-    const { avatar, name, email } = this.props.auth.user;
+		const { classes } = this.props;
+		const { avatar, name, email } = this.props.auth.user;
+		const { pathname } = window.location;
+
+		//Change Drawer Icon
+		const fabIcon = (
+			pathname === '/add-quote' ? 
+			<Link to="/">
+				<Fab color="secondary" aria-label="Add" className={classes.fabButton}>
+					<KeyboardBackSpaceIcon />
+				</Fab>
+			</Link>
+			:
+			<Link to="/add-quote">
+				<Fab color="secondary" aria-label="Add" className={classes.fabButton}>
+					<EditIcon />
+				</Fab>
+			</Link>
+		)
+
+		//Drawer Menù List Definition
 		const sideList = (
 			<div className={classes.list}>
 				<List>
-        <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src={avatar} />
-        </ListItemAvatar>
-        <ListItemText
-          primary={
-            <Typography variant="h6" color="textPrimary">
-                {name}
-            </Typography>
-          }
-        />
-      </ListItem>
+					<ListItem alignItems="flex-start">
+						<ListItemAvatar>
+							<Avatar alt="User Avatar" src={avatar} />
+						</ListItemAvatar>
+						<ListItemText
+							primary={
+								<Typography variant="h6" color="textPrimary">
+									{name}
+								</Typography>
+							}
+							secondary={email}
+							style={{ marginBottom: '20px' }}
+						/>
+					</ListItem>
 					{[ 'Inbox', 'Starred', 'Send email', 'Drafts' ].map((text, index) => (
 						<ListItem button key={text}>
 							<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
@@ -73,17 +100,15 @@ class Layout extends Component {
 					))}
 				</List>
 				<Divider />
-				<List>
-					{[ 'All mail', 'Trash', 'Spam' ].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
-				</List>
+				<ListItem button onClick={this.handleLogout}>
+					<Avatar style={{backgroundColor: '#F80759'}}>
+						<InboxIcon />
+					</Avatar>
+					<ListItemText primary="Logout"/>
+				</ListItem>
 			</div>
-    );
-    
+		);
+
 		return (
 			<div>
 				<AppBar position="static" color="primary" className={classNames('app-bar', classes.appBar)}>
@@ -117,9 +142,7 @@ class Layout extends Component {
 						>
 							<MenuIcon />
 						</IconButton>
-						<Fab color="secondary" aria-label="Add" className={classes.fabButton}>
-							<EditIcon />
-						</Fab>
+						{fabIcon}
 						<div>
 							<IconButton color="inherit">
 								<FavoriteIcon />
@@ -137,9 +160,9 @@ class Layout extends Component {
 
 Layout.propTypes = {
 	classes: PropTypes.object.isRequired,
-  pageTitle: PropTypes.string.isRequired,
-  auth: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired,
+	pageTitle: PropTypes.string.isRequired,
+	auth: PropTypes.object.isRequired,
+	logoutUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

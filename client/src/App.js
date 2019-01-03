@@ -13,6 +13,7 @@ import './components/scss/index.scss';
 import { theme } from './components/jss/theme';
 import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
 import Register from './components/containers/register/Register';
+import AddQuote from './components/containers/quotes/AddQuote';
 
 
 // Check for token
@@ -44,6 +45,7 @@ class App extends Component {
             <div className="App">
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute exact path="/add-quote" component={AddQuote} />                
               </Switch>
               <Route exact path="/" component={Login} />
               <Route exact path="/login" component={Login} />

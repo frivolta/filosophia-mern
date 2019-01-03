@@ -16,5 +16,18 @@ export const styles = theme => ({
     '&:hover': {
       backgroundColor: 'rgba(255,255,255,.8)',
     },
+    category: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignContent: 'center',
+      width: '100%',
+      textAlign: 'center',
+    },
+    categoryAvatar: {
+      textAlign: 'center',
+      margin: '0 auto',
+      position: 'relative',
+      display: 'block'
+    }
 }
 });

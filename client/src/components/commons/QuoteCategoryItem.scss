@@ -1,0 +1,8 @@
+.category-item-avatar{
+  opacity: .3;
+  transition: all .5s;
+  &.selected{
+    opacity: 1;
+    transition: all .5s;
+  }
+}

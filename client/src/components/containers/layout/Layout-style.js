@@ -1,4 +1,10 @@
 export const styles = (theme) => ({
+	root: {
+    "&$logout": {
+      backgroundColor: "red"
+		},
+	},
+	logout: {backgroundColor: "red", color: 'white'},
 	text: {
 		paddingTop: theme.spacing.unit * 2,
 		paddingLeft: theme.spacing.unit * 2,
@@ -40,5 +46,5 @@ export const styles = (theme) => ({
   },
   fullList: {
     width: 'auto',
-  },
+	},
 });

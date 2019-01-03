@@ -97,6 +97,7 @@ router.post('/login', async(req,res)=>{
     const payload = {
       id: user.id,
       name: user.name,
+      email: user.email,
       avatar: user.avatar
     }
     //Sign token

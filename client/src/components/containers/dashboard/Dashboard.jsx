@@ -13,9 +13,9 @@ class Dashboard extends Component {
 	};
 	render() {
 		return (
-			<Layout pageTitle="Feed">
+			<Layout pageTitle="Quotes">
 				<h1>Dashboard</h1>
-				<button onClick={this.handleLogout}>Logout</button>
+			
 				
 			</Layout>
 		);
