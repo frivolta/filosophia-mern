@@ -11,6 +11,19 @@
   line-height: 28px;
   color: #727272;
 }
+.like-popup{
+  font-size: 200px!important;
+  color: $primaryColor;
+  position: absolute;
+  top:0;
+  transform: translate(0, -100%);
+  transition: all 1s;
+  opacity: 0;
+  &--visible{
+    transition: all 1s;
+    opacity: 1;
+  }
+}
 .quote-single{
   &__chip{
     margin-top:16px;
@@ -24,9 +37,14 @@
     padding-bottom:2px;
     background: $primaryColor;
   }
+  &__button-container{
+    margin-top:16px!important;
+  }
   &__like-button{
-    margin-top:16px;
     color: $primaryColor
+  }
+  &__delete-button{
+    color: $secondaryColor
   }
   &__badge{
     margin-bottom: 32px;
