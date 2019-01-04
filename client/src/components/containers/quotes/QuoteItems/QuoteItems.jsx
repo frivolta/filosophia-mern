@@ -7,7 +7,7 @@ export default class QuoteItems extends Component {
     const { quotes } = this.props;
     return (
       <div>
-        {quotes.map(quote=><QuoteSingle quote={quote}/>)}
+        {quotes.map(quote=><QuoteSingle key={ quote._id } quote={quote}/>)}
       </div>
     )
   }

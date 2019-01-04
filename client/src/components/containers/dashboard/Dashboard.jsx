@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { logoutUser } from '../../../redux/actions/authActions';
 import { getAllQuotes } from '../../../redux/actions/quoteActions';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Layout from '../layout/Layout';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import './Dashboard.scss'
