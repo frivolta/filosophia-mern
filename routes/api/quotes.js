@@ -98,6 +98,65 @@ router.get('/:id', passportJWT, async (req, res) => {
 });
 
 
+// @route   POST api/quotes/like/:id
+// @desc    Like quote by id
+// @access  Private
+router.post('/like/:id', passportJWT, async (req, res) => {
+  const errors = {};
+  try{
+    let quote = await Quote.findById(req.params.id);
+    if (!quote) {
+      errors.noquote = `No quote found`;
+      return res.status(404).json(errors);
+    }
+    if (quote.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+      errors.alreadyLiked = 'User already liked this quote';
+      return res.status(400).json(errors);
+    }
+
+    // Add user id to likes array
+    quote.likes = [{ user: req.user.id }].concat(quote.likes);
+
+    // Save the quote
+    quote = await quote.save();
+
+    return res.json(quote);
+  }catch(err){
+    errors.noquote = await `No quote found`;
+    return res.status(404).json(errors);
+  }
+});
+
+// @route   POST api/quotes/like/:id
+// @desc    Unlike quote by id
+// @access  Private
+router.post('/unlike/:id', passportJWT, async (req, res) => {
+  const errors = {};
+  try{
+    let quote = await Quote.findById(req.params.id);
+    if (!quote) {
+      errors.noquote = `No quote found`;
+      return res.status(404).json(errors);
+    }
+    if (quote.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
+      errors.alreadyLiked = 'You have not liked the post yet';
+      return res.status(400).json(errors);
+    }
+
+    // Add user id to likes array
+    const updateLikes = quote.likes.filter(like => like.user.toString() !== req.user.id);
+    quote.likes = updateLikes;
+
+    // Save the quote
+    quote = await quote.save();
+
+    return res.json(quote);
+  }catch(err){
+    errors.noquote = await `No quote found`;
+    return res.status(404).json(errors);
+  }
+});
+
 
 /**Router Middleware */
 module.exports = router;

@@ -22,10 +22,20 @@ const QuoteSchema = new Schema({
   avatar: {
     type: String
   },
+  likes: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+      },
+
+    }
+  ],
   date:{
     type: Date,
     default: Date.now
-  }
+  },
+  
 });
 
 module.exports = Quote = mongoose.model('quotes', QuoteSchema);
