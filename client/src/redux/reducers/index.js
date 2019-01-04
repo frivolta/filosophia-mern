@@ -5,6 +5,6 @@ import quoteReducer from '../reducers/quoteReducer';
 
 export default combineReducers({
   auth: authReducer,
-  quote: quoteReducer,
+  quotes: quoteReducer,
   errors: errorReducer
 });
