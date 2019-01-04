@@ -13,6 +13,31 @@ import Typography from '@material-ui/core/Typography';
 import Moment from 'react-moment';
 
 class QuoteSingle extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      categoryLife: '#ffb74d',
+      categoryLove: '#f06292',
+      categoryWork: '#64b5f6',
+      categoryOther: '#607d8b',
+    }
+  }
+  selectBackgroundColor = (category) => {
+    const {categoryLife, categoryLove, categoryWork, categoryOther} = this.state;
+
+    if (category === 'Life'){
+      return categoryLife;
+    }
+    if (category === 'Love'){
+      return categoryLove;
+    }
+    if (category === 'Work'){
+      return categoryWork;
+    }
+    if (category === 'Other'){
+      return categoryOther;
+    }
+  }
 	render() {
 		const { text, _id, category, avatar,date } = this.props.quote;
 		return (
@@ -52,7 +77,7 @@ class QuoteSingle extends Component {
 					</IconButton>
 				</Grid>
 				<Grid item xs={12}>
-					<div className="quote-single__chip">{category}</div>
+					<div className="quote-single__chip" style={{backgroundColor: this.selectBackgroundColor(category)}}>{category}</div>
 				</Grid>
 			</Paper>
 		);
