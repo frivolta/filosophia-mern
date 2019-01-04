@@ -39,7 +39,7 @@ class QuoteSingle extends Component {
     }
   }
 	render() {
-		const { text, _id, category, avatar,date } = this.props.quote;
+		const { text, _id, category, avatar, date, username } = this.props.quote;
 		return (
 			<Paper key={_id} className="paper">
 				<Grid item xs={12}>
@@ -50,7 +50,7 @@ class QuoteSingle extends Component {
 								<ListItemText
 									primary={
 										<Typography variant="h6" color="primary">
-											Ali Connors says:
+											{username} says:
 										</Typography>
 									}
 									secondary={

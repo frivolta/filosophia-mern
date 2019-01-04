@@ -46,7 +46,8 @@ router.post('/', passportJWT, async (req, res) => {
     text: req.body.text,
     category: req.body.category,
     avatar: req.body.avatar,
-    user: req.user.id
+    user: req.user.id,
+    username: req.user.name
   });
   try {
     const newQuote = await quote.save();
