@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import './Layout.scss';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -26,7 +27,10 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import PetsIcon from '@material-ui/icons/Pets';
+import GroupIcon from '@material-ui/icons/Group';
+import AppsIcon from '@material-ui/icons/Apps';
 import KeyboardBackSpaceIcon from '@material-ui/icons/KeyboardBackspace';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
@@ -34,7 +38,7 @@ class Layout extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			drawerActive: false,
+			drawerActive: false
 		};
 	}
 	handleLogout = (e) => {
@@ -48,27 +52,26 @@ class Layout extends Component {
 		});
 	};
 
-
 	render() {
 		const { classes } = this.props;
 		const { avatar, name, email } = this.props.auth.user;
 		const { pathname } = window.location;
 
 		//Change Drawer Icon
-		const fabIcon = (
-			pathname === '/add-quote' ? 
-			<Link to="/">
-				<Fab color="secondary" aria-label="Add" className={classes.fabButton}>
-					<KeyboardBackSpaceIcon />
-				</Fab>
-			</Link>
-			:
-			<Link to="/add-quote">
-				<Fab color="secondary" aria-label="Add" className={classes.fabButton}>
-					<EditIcon />
-				</Fab>
-			</Link>
-		)
+		const fabIcon =
+			pathname === '/add-quote' || pathname === '/loved' || pathname === '/my-quotes' ? (
+				<Link to="/">
+					<Fab color="secondary" aria-label="Add" className={classes.fabButton}>
+						<KeyboardBackSpaceIcon />
+					</Fab>
+				</Link>
+			) : (
+				<Link to="/add-quote">
+					<Fab color="secondary" aria-label="Add" className={classes.fabButton}>
+						<EditIcon />
+					</Fab>
+				</Link>
+			);
 
 		//Drawer Menù List Definition
 		const sideList = (
@@ -88,19 +91,37 @@ class Layout extends Component {
 							style={{ marginBottom: '20px' }}
 						/>
 					</ListItem>
-					{[ 'Inbox', 'Starred', 'Send email', 'Drafts' ].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-							<ListItemText primary={text} />
+					<a href="/Life" className="category-link">
+						<ListItem button>
+							<Avatar style={{ backgroundColor: '#ffb74d'}}><FingerprintIcon /></Avatar>
+							<ListItemText primary="Life" />
 						</ListItem>
-					))}
+						</a>
+					<a href="/Love" className="category-link">
+						<ListItem button>
+							<Avatar style={{ backgroundColor: '#f06292'}}><PetsIcon /></Avatar>
+							<ListItemText primary="Love" />
+						</ListItem>
+						</a>
+					<a href="/Work" className="category-link">
+						<ListItem button>
+							<Avatar style={{ backgroundColor: '#64b5f6'}}><GroupIcon /></Avatar>
+							<ListItemText primary="Work" />
+						</ListItem>
+					</a>
+					<a href="/Other" className="category-link">
+						<ListItem button>
+							<Avatar style={{ backgroundColor: '#607d8b'}}><AppsIcon /></Avatar>
+							<ListItemText primary="Other" />
+						</ListItem>
+					</a>
 				</List>
 				<Divider />
 				<ListItem button onClick={this.handleLogout}>
-					<Avatar style={{backgroundColor: '#F80759'}}>
+					<Avatar style={{ backgroundColor: '#F80759' }}>
 						<InboxIcon />
 					</Avatar>
-					<ListItemText primary="Logout"/>
+					<ListItemText primary="Logout" />
 				</ListItem>
 			</div>
 		);
@@ -140,12 +161,16 @@ class Layout extends Component {
 						</IconButton>
 						{fabIcon}
 						<div>
-							<IconButton color="inherit">
-								<FavoriteIcon />
-							</IconButton>
-							<IconButton color="inherit">
-								<FaceIcon />
-							</IconButton>
+							<Link to="/loved" style={{ color: 'white' }}>
+								<IconButton color="inherit">
+									<FavoriteIcon />
+								</IconButton>
+							</Link>
+							<Link to="/my-quotes" style={{ color: 'white' }}>
+								<IconButton color="inherit">
+									<FaceIcon />
+								</IconButton>
+							</Link>
 						</div>
 					</Toolbar>
 				</AppBar>

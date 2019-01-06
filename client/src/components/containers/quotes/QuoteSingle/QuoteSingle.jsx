@@ -111,9 +111,11 @@ class QuoteSingle extends Component {
 					<IconButton className="quote-single__button-container">
             {this.findUserLike(likes) ? <Favorite className="quote-single__like-button" onClick = {()=>this.removeLike(_id)} /> : <FavoriteBorderIcon className="quote-single__like-button" onClick = {()=>this.addLike(_id)}/>}
         	</IconButton>
+          {this.userCanDelete(this.props.auth.user.id, user ) && 
 					<IconButton  className="quote-single__button-container">
-                {this.userCanDelete(this.props.auth.user.id, user ) && <HighlightOffIcon onClick={()=>this.openDialog(_id)}  className="quote-single__delete-button"/>}
+              <HighlightOffIcon onClick={()=>this.openDialog(_id)}  className="quote-single__delete-button"/>
 					</IconButton>
+          }
 				</Grid>
 				<Grid item xs={12}>
 					<div className="quote-single__chip" style={{backgroundColor: this.selectBackgroundColor(category)}}>{category}</div>

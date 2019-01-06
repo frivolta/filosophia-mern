@@ -64,3 +64,13 @@ $fontFamily: 'Roboto';
   }
 
 }
+
+//Loading progress bar
+.progress{
+  display: flex;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  margin-left: -20px;
+  margin-top: -20px;
+}

@@ -72,6 +72,21 @@ router.get('/', passportJWT, async (req, res) => {
     return res.status(404).json(errors);
   }
 });
+// @route   GET api/quotes/:cat
+// @desc    Get specific category quotes
+// @access  Private
+router.get('/:cat', passportJWT, async (req, res) => {
+  const errors = {};
+  try {
+    const allQuotes = await Quote.find({category: req.params.cat}).sort({
+      date: -1
+    })
+    res.json(allQuotes);
+  } catch (error) {
+    errors.noquotes = 'No quotes for this category found';
+    return res.status(404).json(errors);
+  }
+});
 
 // @route   DELETE api/quotes/:id
 // @desc    Remove quote by id

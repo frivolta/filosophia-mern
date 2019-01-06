@@ -16,6 +16,17 @@ export const getAllQuotes = ()=> dispatch =>{
       payload: err.response.data
     }))
 }
+//Get category quote
+export const getCategoryQuotes = (category)=> dispatch =>{
+  dispatch(setIsLoading());
+  axios
+    .get(`api/quotes/${category}`)
+    .then(result => dispatch(setCurrentQuotes(result.data)))
+    .catch(err=>dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }))
+}
 
 
 //Post Quote

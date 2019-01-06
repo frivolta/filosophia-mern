@@ -1,5 +1,4 @@
 import React from 'react';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Avatar from '@material-ui/core/Avatar';
 
 import Typography from '@material-ui/core/Typography';

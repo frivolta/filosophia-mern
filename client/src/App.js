@@ -8,12 +8,15 @@ import setAuthToken from './helpers/setAuthToken';
 import { setCurrentUser, logoutUser } from './redux/actions/authActions';
 import store from './redux/store';
 import Login from './components/containers/login/Login';
-import Dashboard from './components/containers/dashboard/Dashboard';
+import Dashboard from './components/containers/pages/dashboard/Dashboard';
 import './components/scss/index.scss';
 import { theme } from './components/jss/theme';
 import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
 import Register from './components/containers/register/Register';
 import AddQuote from './components/containers/quotes/AddQuote';
+import Loved from './components/containers/pages/loved/Loved';
+import MyQuotes from './components/containers/pages/my-quotes/MyQuotes';
+import Category from './components/containers/pages/category/Category';
 
 
 // Check for token
@@ -45,7 +48,10 @@ class App extends Component {
             <div className="App">
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/add-quote" component={AddQuote} />                
+                <PrivateRoute exact path="/loved" component={Loved} />
+                <PrivateRoute exact path="/add-quote" component={AddQuote} />      
+                <PrivateRoute exact path="/my-quotes" component={MyQuotes} />          
+                <PrivateRoute exact path="/:cat" component={Category} />          
               </Switch>
               <Route exact path="/" component={Login} />
               <Route exact path="/login" component={Login} />

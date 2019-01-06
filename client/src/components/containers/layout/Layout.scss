@@ -1,5 +1,9 @@
 @import '../../scss/index';
 
+.category-link{
+  text-decoration: none;
+}
+
 .app-bar{
   background: linear-gradient(135deg, $secondaryColor 0%, $primaryColor 100%);
 }
